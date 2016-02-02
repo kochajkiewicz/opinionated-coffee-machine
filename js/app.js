@@ -54,6 +54,7 @@ $(document).ready(function(){
 
     coffeePour.on('press', function(e) {
 
+        counter = 0;
         liquidHeight.coffee = $(coffee).height();
         origLiquidHeight.coffee = liquidHeight.coffee;
 
@@ -136,6 +137,7 @@ $(document).ready(function(){
 
     foamedMilkPour.on('press', function(e) {
 
+        counter = 0;
         liquidHeight.foamedMilk = $(foamedMilk).height();
         origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
 
@@ -152,10 +154,8 @@ $(document).ready(function(){
                 }, 500);
 
                 drinks.dryCapuccino = true;
-
                 //test
                 //console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
-
             }
 
             scaleBy = origLiquidHeight.foamedMilk + counter;
@@ -177,12 +177,13 @@ $(document).ready(function(){
     })
     foamedMilkPour.on('tap', function(e){
 
+        counter = 0;
         //liquidHeight.foamedMilk = $(foamedMilk).height();
         //origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
 
         if (showLiquid === 2 && !drinks.flatWhite) {
 
-            counter = 0;
+
             $(foamedMilk).css({'height': ''});
             clearInterval(myInterval);
 
@@ -207,6 +208,7 @@ $(document).ready(function(){
     });
 
     steamedMilkPour.on('press', function(e){
+        counter = 0;
         if (showLiquid === 2) {
 
         } else if (showLiquid === 3) {
@@ -223,7 +225,7 @@ $(document).ready(function(){
     });
 
     steamedMilkPour.on('tap', function(e){
-
+        counter = 0;
         if (showLiquid === 2 && drinks.flatWhite) {
 
             $(steamedMilk).addClass('not-poured').removeClass('double');

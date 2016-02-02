@@ -30,10 +30,6 @@ var drinks = {
 
 // functions
 
-function changeName(name) {
-
-}
-
 $(document).ready(function(){
 
     // hammerjs variables

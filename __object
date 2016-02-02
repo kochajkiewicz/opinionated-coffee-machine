@@ -1,0 +1,79 @@
+1:
+    espresso
+    1 coffee
+    poured
+    double espresso
+    2 coffee
+    poured
+    triple espresso
+    3 coffee
+    poured
+2:
+    drink: 'flat white'
+    1 coffee 2 steamed milk
+    poured
+    cortado
+    1 coffee 0.5 foamed milk
+    drink: 'dry capuccino'
+    1 coffee 2 foamed milk
+    poured
+3:
+    drink: 'latte'
+    1 coffee 2 steamed milk + 0.1 foamed milk
+    poured
+    drink: 'double latte'
+    2 coffee 2 steamed milk + 0.1 foamed milk
+    poured
+    drink: 'capuccino'
+    1 coffee 1 steamed milk 1 foamed milk
+    poured
+
+if (showLiquid = 1) {
+    tap coffee {
+        count
+        if 1 - single espresso
+        if 2 - double espresso
+        if 3 - triple espresso
+        break
+    }
+}
+if (showLiquid = 2) { - start with cortado (foamed milk)
+    tap coffee {
+        count
+        if 1 - flat white
+        if 2 - double flat white
+        break
+    }
+    tap steamed milk {
+        break
+    }
+    double tap steamed milk {
+        change to foamed milk, pour a drop - cortado
+        break
+        tap foamed milk {
+            count
+            if 2 - dry capuccino
+            break
+        }
+    }
+    double tap foamed milk {
+        change to steamed milk
+        break
+    }
+}
+if (showLiquid = 3) {  - start with latte
+    tap coffee {
+        count
+        if 1 - latte
+        if 2 - double latte
+        break
+    }
+    tap steamed milk {
+        if 1 - capuccino
+        if 2 - latte {
+            change foamed milk to 0.1
+            check coffee if single or double
+            break
+        }
+    }
+}

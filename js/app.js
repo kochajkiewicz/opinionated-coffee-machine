@@ -223,9 +223,6 @@ $(document).ready(function(){
                 $(coffee).removeClass('no-drinks');
             }
 
-
-
-
         }
 
     });
@@ -237,22 +234,18 @@ $(document).ready(function(){
 
         if (showLiquid === 2) {
 
-                origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
+            origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
 
             if (drinks.cortado) {
                 console.log(e);
                 myInterval = setInterval(function () {
                     ++counter;
-                    //console.log(counter);
 
                     if (counter >= origLiquidHeight.foamedMilk *3) {
-
                         drink.html('').hide().addClass('flip-in-x').html('dry capuccino').show();
                         setTimeout(function () {
                             drink.removeClass('flip-in-x');
                         }, 500);
-                        //console.log('class set');
-
                         clearInterval(myInterval);
                         currentDrink('dryCapuccino');
                     }

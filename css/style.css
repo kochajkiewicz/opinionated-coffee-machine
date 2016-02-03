@@ -246,8 +246,8 @@ body {
     height: 10vh; }
   .liquid.double {
     height: 40vh; }
-  .liquid.unavailable {
-    opacity: .5;
+  .liquid.no-drinks {
+    opacity: .75;
     transition: opacity 0.25s cubic-bezier(0.17, 0.67, 0.72, 1.25); }
 
 .coffee {

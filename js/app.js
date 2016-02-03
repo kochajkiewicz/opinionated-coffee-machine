@@ -29,6 +29,18 @@ var drinks = {
 }
 
 // functions
+function currentDrink(name) {
+    for (var key in drinks) {
+        if (drinks.hasOwnProperty(key)) {
+            if (key === name) {
+                drinks[key] = true;
+            } else {
+                drinks[key] = false;
+            }
+        }
+    }
+    // console.log(drinks);
+}
 
 $(document).ready(function(){
 
@@ -54,7 +66,6 @@ $(document).ready(function(){
 
     coffeePour.on('press', function(e) {
 
-        counter = 0;
         liquidHeight.coffee = $(coffee).height();
         origLiquidHeight.coffee = liquidHeight.coffee;
 
@@ -63,16 +74,15 @@ $(document).ready(function(){
             ++counter;
             if (counter >= origLiquidHeight.coffee && !drinks.doubleEspresso) { // double espresso
 
-                // TODO: if already set, don't set
                 drink.html('').hide().addClass('flip-in-x').html('double espresso').show();
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
                 }, 500);
-
+                console.log('class set');
                 drinks.doubleEspresso = true;
 
                 //test
-                console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
+                //console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
 
             } else if (counter >= (origLiquidHeight.coffee * 2) && !drinks.tripleEspresso) { // triple espresso
 
@@ -84,9 +94,8 @@ $(document).ready(function(){
                 drinks.tripleEspresso = true;
 
                 //test
-                console.log('Triple espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
+                // console.log('Triple espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
 
-                // TODO: stop counting
             }
 
             scaleBy = origLiquidHeight.coffee + counter;
@@ -98,38 +107,106 @@ $(document).ready(function(){
         }, 2);  // showLiquid === 1 ends
 
     } else  if (showLiquid === 2) {
+        // cortado
+        // dry capuccino
+        // flat white
 
-        $(coffee).addClass('unavailable');
+        $(coffee).addClass('no-drinks');
 
     } else if (showLiquid === 3) {
-        alert('Nothing assigned!');
+        // latte
+        // double latte
+        // capuccino
+        counter = 0;
 
-        // TODO: create rules for coffee behaviour
-        // TODO: create rules for milk behaviour
+        if (drinks.latte) {
+
+            // original height
+
+            liquidHeight.coffee = $(coffee).height();
+            origLiquidHeight.coffee = liquidHeight.coffee;
+
+            console.log(origLiquidHeight.coffee);
+
+            myInterval = setInterval(function () {
+            ++counter;
+            console.log(counter);
+
+            if (counter >= origLiquidHeight.coffee) {
+
+                drink.html('').hide().addClass('flip-in-x').html('double latte').show();
+                setTimeout(function () {
+                    drink.removeClass('flip-in-x');
+                }, 500);
+                console.log('class set');
+
+                currentDrink('doubleLatte');
+
+                //test
+                //console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
+
+            }
+
+            scaleBy = origLiquidHeight.coffee + counter;
+
+            if (!drinks.doubleLatte) {
+                $(coffee).css({'height': scaleBy + 'px'});
+            }
+
+        }, 2);
+
+        }
+
+        if (drinks.doubleLatte) {
+            counter = 0;
+
+        }
+
+        if (drinks.capuccino) {
+            counter = 0;
+
+        }
     }
 
     });
 
     coffeePour.on('pressup', function(e) {
+
+        clearInterval(myInterval);
+
         if (showLiquid === 1) {
 
-            // TODO: remove after all rules are in place
+
+
+            if (drinks.doubleEspresso) {
+
+            }
+            else if (drinks.tripleEspresso) {}
+            else {}
 
             counter = 0;
-            $(coffee).css({'height': origLiquidHeight.coffee + 'px'});
-            clearInterval(myInterval);
-            drink.html('').hide().addClass('flip-in-x').html('espresso').show();
-            setTimeout(function () {
-                drink.removeClass('flip-in-x');
-            }, 500);
+            // $(coffee).css({'height': origLiquidHeight.coffee + 'px'});
+            // clearInterval(myInterval);
+            // drink.html('').hide().addClass('flip-in-x').html('espresso').show();
+            // setTimeout(function () {
+            //     drink.removeClass('flip-in-x');
+            // }, 500);
 
             // set object values back to starting
-            drinks.doubleEspresso = false;
-            drinks.tripleEspresso = false;
+            // currentDrink('espresso')
 
         } else if (showLiquid === 2) {
+            $(coffee).removeClass('no-drinks');
+        } else if (showLiquid === 3) {
 
-            $(coffee).removeClass('unavailable');
+            // latte
+            // double latte
+            // capuccino
+
+            counter = 0;
+            clearInterval(myInterval);
+            currentDrink('doubleLatte');
+
 
         }
 
@@ -137,69 +214,99 @@ $(document).ready(function(){
 
     foamedMilkPour.on('press', function(e) {
 
-        counter = 0;
-        liquidHeight.foamedMilk = $(foamedMilk).height();
-        origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
+        // liquidHeight.foamedMilk = $(foamedMilk).height();
+        // origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
 
         if (showLiquid === 2) {
 
-            myInterval = setInterval(function () {
-            ++counter;
+        // cortado
+        // flat white
+        // dry capuccino
 
-            if (counter >= origLiquidHeight.foamedMilk*3 && !drinks.dryCapuccino) { // dry capuccino
-
-                drink.html('').hide().addClass('flip-in-x').html('dry capuccino').show();
-                setTimeout(function () {
-                    drink.removeClass('flip-in-x');
-                }, 500);
-
-                drinks.dryCapuccino = true;
-                //test
-                //console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
-            }
-
-            scaleBy = origLiquidHeight.foamedMilk + counter;
-
-            if (!drinks.dryCapuccino) {
-                $(foamedMilk).css({'height': scaleBy + 'px'});
-            }
-
-        }, 2);  // showLiquid === 2 ends
+        //     myInterval = setInterval(function () {
+        //     ++counter;
+        //
+        //     if (counter >= origLiquidHeight.foamedMilk*3 && !drinks.dryCapuccino) { // dry capuccino
+        //
+        //         drink.html('').hide().addClass('flip-in-x').html('dry capuccino').show();
+        //         setTimeout(function () {
+        //             drink.removeClass('flip-in-x');
+        //         }, 500);
+        //
+        //         drinks.dryCapuccino = true;
+        //
+        //         //test
+        //         //console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
+        //
+        //     }
+        //
+        //     scaleBy = origLiquidHeight.foamedMilk + counter;
+        //
+        //     if (!drinks.dryCapuccino) {
+        //         $(foamedMilk).css({'height': scaleBy + 'px'});
+        //     }
+        //
+        // }, 2);  // showLiquid === 2 ends
 
         } else if (showLiquid === 3) {
+
+            // latte
+            // double latte
+            // capuccino
 
         }
     });
     foamedMilkPour.on('pressup', function(e){
         if (showLiquid === 2) {
-            // TODO: dry capuccino poured
+
+            // cortado
+            // dry capuccino
+            // flat white
+
+        } else if (showLiquid === 3) {
+
+            // latte
+            // double latte
+            // capuccino
+
         }
     })
     foamedMilkPour.on('tap', function(e){
 
-        counter = 0;
         //liquidHeight.foamedMilk = $(foamedMilk).height();
         //origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
 
-        if (showLiquid === 2 && !drinks.flatWhite) {
+        if (showLiquid === 2) {
 
+            // cortado
+            // flat white
+            // dry capuccino
 
-            $(foamedMilk).css({'height': ''});
-            clearInterval(myInterval);
+            // counter = 0;
+            // if (!flatWhite &&) {
+            //     $(foamedMilk).css({'height': ''});
+            //     clearInterval(myInterval);
+            //
+            //     $(foamedMilk).addClass('not-poured').removeClass('half');
+            //     $(steamedMilk).removeClass('not-poured').addClass('double');
+            //
+            //     drink.html('').hide().addClass('flip-in-x').html('flat white').show();
+            //     setTimeout(function () {
+            //         drink.removeClass('flip-in-x');
+            //     }, 500);
+            //
+            //     drinks.flatWhite = true;
+            //     drinks.cortado = false;
+            //     drinks.dryCapuccino = false;
+            //
+            //     e.stopPropagation();
+            // }
+        } else if  (showLiquid === 3) {
 
-            $(foamedMilk).addClass('not-poured').removeClass('half');
-            $(steamedMilk).removeClass('not-poured').addClass('double');
+            // latte
+            // double latte
+            // capuccino
 
-            drink.html('').hide().addClass('flip-in-x').html('flat white').show();
-            setTimeout(function () {
-                drink.removeClass('flip-in-x');
-            }, 500);
-
-            drinks.flatWhite = true;
-            drinks.cortado = false;
-            drinks.dryCapuccino = false;
-
-            e.stopPropagation();
         }
 
         //scaleBy = origLiquidHeight.foamedMilk + counter;
@@ -208,10 +315,17 @@ $(document).ready(function(){
     });
 
     steamedMilkPour.on('press', function(e){
-        counter = 0;
         if (showLiquid === 2) {
 
+            // cortado
+            // dry capuccino
+            // flat white
+
         } else if (showLiquid === 3) {
+
+            // latte
+            // double latte
+            // capuccino
 
         }
     });
@@ -219,45 +333,60 @@ $(document).ready(function(){
     steamedMilkPour.on('pressup', function(e){
         if (showLiquid === 2) {
 
+            // cortado
+            // dry capuccino
+            // flat white
+
         } else if (showLiquid === 3) {
+
+            // latte
+            // double latte
+            // capuccino
 
         }
     });
 
     steamedMilkPour.on('tap', function(e){
-        counter = 0;
-        if (showLiquid === 2 && drinks.flatWhite) {
 
-            $(steamedMilk).addClass('not-poured').removeClass('double');
-            $(foamedMilk).removeClass('not-poured').addClass('half');
+        if (showLiquid === 2) {
 
-            drink.html('').hide().addClass('flip-in-x').html('cortado').show();
-                setTimeout(function () {
-                    drink.removeClass('flip-in-x');
-                }, 500);
+            // cortado
+            // dry capuccino
+            // flat white
 
-            drinks.cortado = true;
-            drinks.flatWhite = false;
-            // drinks.dryCapuccino = false;
+            // $(steamedMilk).addClass('not-poured').removeClass('double');
+            // $(foamedMilk).removeClass('not-poured').addClass('half');
+            //
+            // drink.html('').hide().addClass('flip-in-x').html('cortado').show();
+            //     setTimeout(function () {
+            //         drink.removeClass('flip-in-x');
+            //     }, 500);
+            //
+            // drinks.cortado = true;
+            // drinks.flatWhite = false;
+            // // drinks.dryCapuccino = false;
+            //
+            // e.stopPropagation();
 
-            e.stopPropagation();
+        } else if (showLiquid === 3) {
 
-        } else if (showLiquid === 3) {// TODO: else removeClass('double') and carry on
+            // latte
+            // double latte
+            // capuccino
 
         }
     });
 
     glassFill.on('tap', function(e) {
         showLiquid++;
-        // console.log('single tap');
 
-        // TODO: check showLiquid and show liquids depending on the number
+        $(coffee).css({'height':''});
 
         if (showLiquid === 2) { // cortado
 
             // TODO: all heights and counters back to zero
 
-
+            //if (!drinks.flatWhite) {}
             $(foamedMilk).removeClass('not-poured').addClass('half');
 
             drink.html('').hide().addClass('flip-in-x').html('cortado').show();
@@ -265,13 +394,12 @@ $(document).ready(function(){
                     drink.removeClass('flip-in-x');
                 }, 500);
 
-            drinks.espresso, drinks.doubleEspresso, drinks.tripleEspresso = false;
-            drinks.cortado = true;
+            currentDrink('cortado');
 
         } else if (showLiquid === 3) { // latte
 
-            console.log(showLiquid);
-            console.log(drinks);
+            // console.log(showLiquid);
+            // console.log(drinks);
 
             // TODO: all heights and counters back to zero
 
@@ -283,9 +411,7 @@ $(document).ready(function(){
                     drink.removeClass('flip-in-x');
                 }, 500);
 
-            drinks.espresso, drinks.doubleEspresso, drinks.tripleEspresso = false;
-            drinks.cortado, drinks.flatWhite, drinks.dryCapuccino = false;
-            drinks.latte = true;
+            currentDrink('latte');
 
         } else {
 
@@ -299,8 +425,7 @@ $(document).ready(function(){
                     drink.removeClass('flip-in-x');
                 }, 500);
 
-            drinks.latte, drinks.doubleLatte, drinks.capuccino = false;
-            drinks.espresso = true;
+            currentDrink('espresso');
         }
 
     });

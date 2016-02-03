@@ -80,8 +80,8 @@ body {
     &.double {
         height: 40vh;
     }
-    &.unavailable {
-        opacity: .5;
+    &.no-drinks {
+        opacity: .75;
         transition: opacity 0.25s cubic-bezier(.17,.67,.72,1.25);
     }
 }

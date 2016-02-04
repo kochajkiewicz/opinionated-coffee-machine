@@ -236,10 +236,9 @@ $(document).ready(function(){
             origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
 
             if (drinks.cortado) {
-                console.log(e);
+                //console.log(e);
                 myInterval = setInterval(function () {
                     ++counter;
-
                     if (counter >= origLiquidHeight.foamedMilk *3) {
                         drink.html('').hide().addClass('flip-in-x').html('dry capuccino').show();
                         setTimeout(function () {
@@ -303,7 +302,8 @@ $(document).ready(function(){
 
             // cortado
             if (drinks.cortado) {
-
+                //TODO: stop pouring
+                $(foamedMilk).css({'height': origLiquidHeight.foamedMilk});
             }
             if  (drinks.dryCapuccino) {
                 $(foamedMilk).removeClass('no-drinks');

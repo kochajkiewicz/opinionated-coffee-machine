@@ -230,7 +230,6 @@ $(document).ready(function(){
 
         liquidHeight.foamedMilk = $(foamedMilk).height();
 
-
         if (showLiquid === 2) {
 
             origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
@@ -247,7 +246,6 @@ $(document).ready(function(){
                         clearInterval(myInterval);
                         currentDrink('dryCapuccino');
                     }
-
                     scaleBy = origLiquidHeight.foamedMilk + counter;
 
                     if (!drinks.dryCapuccino) {
@@ -263,31 +261,6 @@ $(document).ready(function(){
         // cortado
         // flat white
         // dry capuccino
-
-        //     myInterval = setInterval(function () {
-        //     ++counter;
-        //
-        //     if (counter >= origLiquidHeight.foamedMilk*3 && !drinks.dryCapuccino) { // dry capuccino
-        //
-        //         drink.html('').hide().addClass('flip-in-x').html('dry capuccino').show();
-        //         setTimeout(function () {
-        //             drink.removeClass('flip-in-x');
-        //         }, 500);
-        //
-        //         drinks.dryCapuccino = true;
-        //
-        //         //test
-        //         //console.log('Double espresso - original height: ' + origLiquidHeight.coffee + ' current height: ' + (origLiquidHeight.coffee + counter));
-        //
-        //     }
-        //
-        //     scaleBy = origLiquidHeight.foamedMilk + counter;
-        //
-        //     if (!drinks.dryCapuccino) {
-        //         $(foamedMilk).css({'height': scaleBy + 'px'});
-        //     }
-        //
-        // }, 2);  // showLiquid === 2 ends
 
         } else if (showLiquid === 3) {
 
@@ -310,14 +283,11 @@ $(document).ready(function(){
             }
             if (drinks.flatWhite) {}
 
-            // dry capuccino
-            // flat white
-
         } else if (showLiquid === 3) {
 
-            // latte
-            // double latte
-            // capuccino
+            if (drinks.latte) {}
+            if (drinks.doubleLatte) {}
+            if (drinks.capuccino) {}
 
         }
     })

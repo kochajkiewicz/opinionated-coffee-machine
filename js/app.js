@@ -122,7 +122,6 @@ $(document).ready(function(){
         // dry capuccino
         // flat white
 
-
         $(coffee).addClass('no-drinks');
 
     // --------------------------------------- showLiquid === 2 ends ---------------------------------------

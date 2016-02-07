@@ -1,47 +1,29 @@
 @import 'normalize';
 
-// Animations - thanks to https://github.com/daneden/animate.css/
-@keyframes shake {
-  from, to {
-    transform: translate3d(0, 0, 0);
-  }
-
-  10%, 30%, 50%, 70%, 90% {
-    transform: translate3d(-10px, 0, 0);
-  }
-
-  20%, 40%, 60%, 80% {
-    transform: translate3d(10px, 0, 0);
-  }
-}
-
-.shake {
-  animation-name: shake;
-}
-
+// Animations - adapted from https://github.com/daneden/animate.css/
 @keyframes wobble {
   from {
     transform: none;
   }
 
   15% {
-    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    transform: scale(.95);
   }
 
   30% {
-    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    transform: scale(1.15);
   }
 
   45% {
-    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    transform: scale(.97);
   }
 
   60% {
-    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    transform: scale(1.1);
   }
 
   75% {
-    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    transform: scale(.97);
   }
 
   to {
@@ -140,7 +122,10 @@ body {
         opacity: .75;
     }
     &.no-drinks-try-tap {
-        opacity: .5;
+        opacity: .75;
+        animation-name: wobble;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
     }
     &.no-drinks-try-press {
         opacity: .25;

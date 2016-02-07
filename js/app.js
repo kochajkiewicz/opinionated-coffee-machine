@@ -39,6 +39,34 @@ function currentDrink(name) {
         }
     }
 }
+// function handleOrientation(event) {
+//     var x = Math.floor(360 - event.alpha);  // In degree in the range [-180,180]
+//
+//     // Because we don't want to have the device upside down
+//     // We constrain the x value to the range [-90,90]
+//     // if (x >  90) { x =  90};
+//     // if (x < -90) { x = -90};
+//
+//     // To make computation easier we shift the range of
+//     // x and y to [0,180]
+//     // x += 90;
+//
+//     // 10 is half the size of the ball
+//     // It center the positioning point to the center of the ball
+//     $('#suggestion').html(x);
+//     // $('#container').css({
+//     //      'transform': 'rotate(' + (-x) + 'deg)'
+//     // });
+//     console.log(x);
+//
+// }
+// // Device orientation
+// if (window.DeviceOrientationEvent) {
+//     console.log('supported!');
+//     window.addEventListener('deviceorientation', handleOrientation);
+// } else {
+//     console.log('not supported');
+// }
 
 $(document).ready(function(){
 
@@ -88,7 +116,7 @@ $(document).ready(function(){
                 if (!drinks.tripleEspresso) {
                     $(coffee).height(scaleBy);
                 }
-            }, 2);
+            }, 1);
 
     // --------------------------------------- coffee showLiquid === 1 ends ---------------------------------------
 
@@ -126,7 +154,7 @@ $(document).ready(function(){
                         $(coffee).height(scaleBy);
                     }
 
-                }, 2);
+                }, 1);
             }
 
             if (drinks.doubleLatte) {
@@ -202,7 +230,7 @@ $(document).ready(function(){
                         $(foamedMilk).height(scaleBy);
                     }
 
-                }, 2);
+                }, 1);
             }
             if (drinks.dryCapuccino) {
                 $(foamedMilk).addClass('no-drinks-try-tap');
@@ -228,7 +256,7 @@ $(document).ready(function(){
                     if (!drinks.capuccino) {
                         $(foamedMilk).height(scaleBy);
                     }
-                }, 2);
+                }, 1);
             }
             if (drinks.doubleLatte) {
                 origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
@@ -237,11 +265,11 @@ $(document).ready(function(){
                     ++counter;
                     if (counter >= (origLiquidHeight.foamedMilk * 3.3)) {
                         clearInterval(pouring);
+                        currentDrink('capuccino');
                         drink.html('').hide().addClass('flip-in-x').html('capuccino').show();
                         setTimeout(function () {
                             drink.removeClass('flip-in-x');
                         }, 500);
-                        currentDrink('capuccino');
                     }
                     scaleBy = origLiquidHeight.foamedMilk + counter;
                     scaleByNeg = origLiquidHeight.coffee - counter;
@@ -251,7 +279,7 @@ $(document).ready(function(){
                         $(coffee).height(scaleByNeg);
                         $(foamedMilk).height(scaleBy);
                     }
-                }, 2);
+                }, 1);
             }
             if (drinks.capuccino) {
                 $(foamedMilk).addClass('no-drinks');

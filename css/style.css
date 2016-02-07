@@ -214,21 +214,27 @@ html {
 body {
   height: 100%;
   min-height: 100%;
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
   overflow: hidden; }
 
 .drink {
   position: absolute;
-  width: 100%;
-  left: 0;
-  top: 5vh;
+  width: 30%;
+  left: 35%;
+  top: 5%;
   color: black;
   text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0.67em 0;
   animation-duration: .5s; }
+
+.suggestion {
+  text-align: center; }
 
 .container {
   display: flex;
   flex-direction: column-reverse;
-  justify-content: flex-end;
   align-items: flex-end;
   height: 100%;
   background-color: white;
@@ -236,19 +242,23 @@ body {
 
 .liquid {
   width: 100%;
-  height: 20vh; }
+  height: 20%;
+  transition: height 0.1s cubic-bezier(0.17, 0.67, 0.72, 1.25);
+  transition: opacity 0.25s ease-out; }
   .liquid.not-poured {
-    height: 0;
-    transition: height 0.1s cubic-bezier(0.17, 0.67, 0.72, 1.25); }
+    height: 0; }
   .liquid.drop {
-    height: 3vh; }
+    height: 5%; }
   .liquid.half {
-    height: 10vh; }
+    height: 10%; }
   .liquid.double {
-    height: 40vh; }
+    height: 40%; }
   .liquid.no-drinks {
-    opacity: .75;
-    transition: opacity 0.25s cubic-bezier(0.17, 0.67, 0.72, 1.25); }
+    opacity: .75; }
+  .liquid.no-drinks-try-tap {
+    opacity: .5; }
+  .liquid.no-drinks-try-press {
+    opacity: .25; }
 
 .coffee {
   background-color: #0D0701;
@@ -261,5 +271,5 @@ body {
 
 .foamed-milk {
   margin-top: auto;
-  background-color: beige;
+  background-image: linear-gradient(-180deg, #FFFCED 0%, #F7F4E6 100%);
   transition: height 0.15s cubic-bezier(0.17, 0.67, 0.72, 1.25); }

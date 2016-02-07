@@ -1,6 +1,6 @@
 // document variables
 var counter = 0;
-var myInterval, scaleBy, scaleByNeg;
+var pouring, scaleBy, scaleByNeg;
 var liquidHeight = {
     coffee: '',
     steamedMilk: '',
@@ -13,7 +13,6 @@ var origLiquidHeight = {
     foamedMilk: ''
 };
 
-// can be max 3 - means all three liquids are shown
 var showLiquid = 1;
 
 var drinks = {
@@ -26,7 +25,7 @@ var drinks = {
     latte: false,
     doubleLatte: false,
     capuccino: false
-}
+};
 
 // functions
 function currentDrink(name) {
@@ -39,7 +38,6 @@ function currentDrink(name) {
             }
         }
     }
-    // console.log(drinks);
 }
 
 $(document).ready(function(){
@@ -47,37 +45,29 @@ $(document).ready(function(){
     // hammerjs variables
     var coffee = document.getElementById('coffee');
     var coffeePour = propagating(new Hammer(coffee));
-
     var steamedMilk = document.getElementById('steamed-milk');
     var steamedMilkPour = propagating(new Hammer(steamedMilk));
-
     var foamedMilk = document.getElementById('foamed-milk');
     var foamedMilkPour = propagating(new Hammer(foamedMilk));
-
     var glass = document.getElementById('container');
     var glassFill = propagating(new Hammer(glass));
-
     var drink = $('#drink');
 
     coffeePour.on('press', function(e) {
-        liquidHeight.coffee = $(coffee).height();
+        liquidHeight.coffee = Math.floor($(coffee).height());
         if (showLiquid === 1 ) {
             // new pours check
             if (drinks.espresso) {
-
                 origLiquidHeight.coffee = liquidHeight.coffee;
-
             } else {
                 origLiquidHeight.coffee = liquidHeight.coffee / 2;
-
                 drink.html('').hide().addClass('flip-in-x').html('espresso').show();
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
                 }, 500);
                 currentDrink('espresso');
             }
-
-            myInterval = setInterval(function () {
+            pouring = setInterval(function () {
                 ++counter;
                 if (counter >= origLiquidHeight.coffee && !drinks.doubleEspresso) { // double espresso
                     drink.html('').hide().addClass('flip-in-x').html('double espresso').show();
@@ -91,16 +81,13 @@ $(document).ready(function(){
                     setTimeout(function () {
                         drink.removeClass('flip-in-x');
                     }, 500);
-                    clearInterval(myInterval);
+                    clearInterval(pouring);
                     currentDrink('tripleEspresso');
                 }
-
                 scaleBy = origLiquidHeight.coffee + counter;
-
                 if (!drinks.tripleEspresso) {
                     $(coffee).height(scaleBy);
                 }
-
             }, 2);
 
     // --------------------------------------- coffee showLiquid === 1 ends ---------------------------------------
@@ -119,19 +106,17 @@ $(document).ready(function(){
             origLiquidHeight.coffee = liquidHeight.coffee;
 
             if (drinks.latte) {
-                myInterval = setInterval(function () {
+                pouring = setInterval(function () {
                     ++counter;
                     console.log(counter);
 
                     if (counter >= origLiquidHeight.coffee) {
-
+                        clearInterval(pouring);
                         drink.html('').hide().addClass('flip-in-x').html('double latte').show();
                         setTimeout(function () {
                             drink.removeClass('flip-in-x');
                         }, 500);
                         console.log('class set');
-
-                        clearInterval(myInterval);
                         currentDrink('doubleLatte');
                     }
 
@@ -161,23 +146,17 @@ $(document).ready(function(){
     coffeePour.on('pressup', function(e) {
         // Clear counter, interval
         counter = 0;
-        clearInterval(myInterval);
-
+        clearInterval(pouring);
         if (showLiquid === 1) {
-
             if (drinks.espresso) {
-                // Set height to drink height
                 $(coffee).height(origLiquidHeight.coffee);
             }
             if (drinks.doubleEspresso) {
-                // Set height to drink height
                 $(coffee).height(origLiquidHeight.coffee * 2);
             }
             else if (drinks.tripleEspresso) {
-                // Set height to drink height
                 $(coffee).height(origLiquidHeight.coffee * 3);
             }
-
             // --------------------------------------- coffee showLiquid === 1 ends ---------------------------------------
 
         } else if (showLiquid === 2) {
@@ -187,10 +166,6 @@ $(document).ready(function(){
             // --------------------------------------- coffee showLiquid === 2 ends ---------------------------------------
 
         } else if (showLiquid === 3) {
-
-            // latte
-            // double latte
-            // capuccino
             if (drinks.latte) {
                 $(coffee).height(origLiquidHeight.coffee);
             }
@@ -205,21 +180,21 @@ $(document).ready(function(){
     });
 
     foamedMilkPour.on('press', function(e) {
-        liquidHeight.foamedMilk = $(foamedMilk).height();
-        liquidHeight.coffee = $(coffee).height();
+        liquidHeight.foamedMilk = Math.floor($(foamedMilk).height());
+        liquidHeight.coffee = Math.floor($(coffee).height());
         if (showLiquid === 2) {
             if (drinks.cortado) {
                 origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
                 //console.log(origLiquidHeight.foamedMilk, liquidHeight.foamedMilk);
                 //$(foamedMilk).removeClass('half').css({'height': origLiquidHeight.foamedMilk + 'px'});
-                myInterval = setInterval(function () {
+                pouring = setInterval(function () {
                     ++counter;
                     if (counter >= (origLiquidHeight.foamedMilk *3)) {
                         drink.html('').hide().addClass('flip-in-x').html('dry capuccino').show();
                         setTimeout(function () {
                             drink.removeClass('flip-in-x');
                         }, 500);
-                        clearInterval(myInterval);
+                        clearInterval(pouring);
                         currentDrink('dryCapuccino');
                     }
                     scaleBy = origLiquidHeight.foamedMilk + counter;
@@ -231,21 +206,18 @@ $(document).ready(function(){
             }
             if (drinks.dryCapuccino) {
                 $(foamedMilk).addClass('no-drinks-try-tap');
+                // TODO: add .suggestion content and behaviour
             }
 
         } else if (showLiquid === 3) {
-            // latte
-            // double latte
-            // capuccino
-
             if (drinks.latte) {
                 origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
                 console.log(origLiquidHeight.foamedMilk, liquidHeight.foamedMilk);
                 //$(foamedMilk).removeClass('drop').css({'height': origLiquidHeight.foamedMilk + 'px'});
-                myInterval = setInterval(function (){
+                pouring = setInterval(function (){
                     ++counter;
-                    if (counter >= (origLiquidHeight.foamedMilk * 4)) {
-                        clearInterval(myInterval);
+                    if (counter >= (origLiquidHeight.foamedMilk * 3.3)) {
+                        clearInterval(pouring);
                         drink.html('').hide().addClass('flip-in-x').html('capuccino').show();
                         setTimeout(function () {
                             drink.removeClass('flip-in-x');
@@ -261,10 +233,10 @@ $(document).ready(function(){
             if (drinks.doubleLatte) {
                 origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
                 origLiquidHeight.coffee = liquidHeight.coffee;
-                myInterval = setInterval(function (){
+                pouring = setInterval(function (){
                     ++counter;
-                    if (counter >= (origLiquidHeight.foamedMilk * 4)) {
-                        clearInterval(myInterval);
+                    if (counter >= (origLiquidHeight.foamedMilk * 3.3)) {
+                        clearInterval(pouring);
                         drink.html('').hide().addClass('flip-in-x').html('capuccino').show();
                         setTimeout(function () {
                             drink.removeClass('flip-in-x');
@@ -289,17 +261,17 @@ $(document).ready(function(){
 
     foamedMilkPour.on('pressup', function(e){
         counter = 0;
-        clearInterval(myInterval);
+        clearInterval(pouring);
 
         if (showLiquid === 2) {
 
             // cortado
             if (drinks.cortado) {
-                //TODO: stop pouring
                 $(foamedMilk).height(origLiquidHeight.foamedMilk);
             }
             if  (drinks.dryCapuccino) {
                 $(foamedMilk).removeClass('no-drinks-try-tap');
+                // TODO: add .suggestion content and behaviour
             }
             if (drinks.flatWhite) {}
 
@@ -309,18 +281,18 @@ $(document).ready(function(){
                 $(foamedMilk).height(origLiquidHeight.foamedMilk);
             }
             if (drinks.doubleLatte) {
-                $(foamedMilk).height(origLiquidHeight.foamedMilk)
+                $(foamedMilk).height(origLiquidHeight.foamedMilk);
             }
             if (drinks.capuccino) {
                 $(foamedMilk).removeClass('no-drinks');
             }
 
         }
-    })
+    });
     foamedMilkPour.on('tap', function(e){
 
         counter = 0;
-        clearInterval(myInterval);
+        clearInterval(pouring);
 
         if (showLiquid === 2) {
             // cortado
@@ -339,9 +311,7 @@ $(document).ready(function(){
                 e.stopPropagation();
             }
         } else if  (showLiquid === 3) {
-            // latte
-            // double latte
-            // capuccino
+
         }
     });
 
@@ -351,24 +321,23 @@ $(document).ready(function(){
             // flat white
             if (drinks.flatWhite) {
                 $(steamedMilk).addClass('no-drinks-try-tap');
+                // TODO: add .suggestion content and behaviour
             }
 
         } else if (showLiquid === 3) {
             $(steamedMilk).addClass('no-drinks');
-
-            // latte
-            // double latte
-            // capuccino
-
         }
     });
 
     steamedMilkPour.on('pressup', function(e){
+        counter = 0;
+        clearInterval(pouring);
         if (showLiquid === 2) {
 
             // flat white
             if (drinks.flatWhite) {
                 $(steamedMilk).removeClass('no-drinks-try-tap');
+                // TODO: add .suggestion content and behaviour
             }
 
         } else if (showLiquid === 3) {
@@ -379,14 +348,9 @@ $(document).ready(function(){
     steamedMilkPour.on('tap', function(e){
 
         counter = 0;
-        clearInterval(myInterval);
+        clearInterval(pouring);
 
         if (showLiquid === 2) {
-
-            // cortado
-            // dry capuccino
-            // flat white
-
             if (drinks.flatWhite) {
                 $(steamedMilk).removeClass('double').addClass('not-poured');
                 $(foamedMilk).removeClass('not-poured').addClass('half');
@@ -399,15 +363,11 @@ $(document).ready(function(){
             }
 
         } else if (showLiquid === 3) {
-            if (drinks.latte || drinks.doubleLatte || drinks.capuccino) {
-                // TODO: there's nothing on tap
-                // TODO: there's nothing on press
-            }
+
         }
     });
 
     glassFill.on('tap', function(e) {
-
         showLiquid++;
         $(coffee).css({'height':''});
         $(foamedMilk).css({'height':''});
@@ -415,9 +375,6 @@ $(document).ready(function(){
         scaleBy = 0;
 
         if (showLiquid === 2) { // cortado
-
-            // TODO: all heights and counters back to zero
-
             $(foamedMilk).removeClass('not-poured').addClass('half');
 
             drink.html('').hide().addClass('flip-in-x').html('cortado').show();
@@ -428,9 +385,6 @@ $(document).ready(function(){
             currentDrink('cortado');
 
         } else if (showLiquid === 3) { // latte
-
-            // TODO: all heights and counters back to zero
-
             $(steamedMilk).removeClass('not-poured').removeClass('double');
             $(foamedMilk).removeClass('half').css({'height': ''}).addClass('drop');
 
@@ -438,13 +392,8 @@ $(document).ready(function(){
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
                 }, 500);
-
             currentDrink('latte');
-
         } else {
-
-            // TODO: all heights and counters back to zero
-
             $(foamedMilk).addClass('not-poured').removeClass('drop');
             $(steamedMilk).addClass('not-poured');
             showLiquid = 1;
@@ -452,14 +401,7 @@ $(document).ready(function(){
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
                 }, 500);
-
             currentDrink('espresso');
         }
-
     });
-
-    // glassFill.on('doubletap', function(e){
-    //     console.log('double tap');
-    // });
-
 });

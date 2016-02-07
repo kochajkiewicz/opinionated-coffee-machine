@@ -66,19 +66,19 @@ body {
 }
 .liquid {
     width: 100%;
-    height: 20vh;
+    height: 20%;
     &.not-poured {
         height: 0;
         transition: height 0.1s cubic-bezier(.17,.67,.72,1.25);
     }
     &.drop {
-        height: 3vh;
+        height: 5%;
     }
     &.half {
-        height: 10vh;
+        height: 10%;
     }
     &.double {
-        height: 40vh;
+        height: 40%;
     }
     &.no-drinks {
         opacity: .75;

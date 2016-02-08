@@ -129,6 +129,21 @@ function pour(liquid, x, drinkname) {
     }
 }
 
+// requestAnimationFrame experiment
+// function () {
+//     ++counter;
+//     if (counter >= origLiquidHeight.coffee && !drinks.doubleEspresso.poured) { // double espresso
+//         currentDrink('doubleEspresso');
+//     } else if (counter >= (origLiquidHeight.coffee * 2)) { // triple espresso
+//         clearInterval(pouring);
+//         currentDrink('tripleEspresso');
+//     }
+//     scaleBy = origLiquidHeight.coffee + counter;
+//     if (!drinks.tripleEspresso.poured) {
+//         coffee.height(scaleBy);
+//     }
+// }
+
 $(document).ready(function(){
 
     // TODO: onload animations - coffee & drink name

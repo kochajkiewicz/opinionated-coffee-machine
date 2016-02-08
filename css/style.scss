@@ -133,9 +133,13 @@ body {
     transition: opacity 0.25s ease-out;
     &.not-poured {
         height: 0;
+        transition: height 0.1s cubic-bezier(.17,.67,.72,1.25);
+        transition: opacity 0.25s ease-out;
     }
     &.drop {
         height: 5%;
+        transition: height 0.1s cubic-bezier(.17,.67,.72,1.25);
+        transition: opacity 0.25s ease-out;
     }
     &.half {
         height: 10%;

@@ -283,9 +283,13 @@ body {
   transition: height 0.1s cubic-bezier(0.17, 0.67, 0.72, 1.25);
   transition: opacity 0.25s ease-out; }
   .liquid.not-poured {
-    height: 0; }
+    height: 0;
+    transition: height 0.1s cubic-bezier(0.17, 0.67, 0.72, 1.25);
+    transition: opacity 0.25s ease-out; }
   .liquid.drop {
-    height: 5%; }
+    height: 5%;
+    transition: height 0.1s cubic-bezier(0.17, 0.67, 0.72, 1.25);
+    transition: opacity 0.25s ease-out; }
   .liquid.half {
     height: 10%; }
   .liquid.double {

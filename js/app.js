@@ -124,6 +124,10 @@ function displaySuggestion(liquid, message) {
 // }
 
 $(document).ready(function(){
+
+    // TODO: onload animations - coffee & drink name
+    $(coffee).removeClass('not-poured');
+    
     coffeePour.on('press', function(e) {
         liquidHeight.coffee = Math.floor($(coffee).height());
         if (showLiquid === 1 ) {
@@ -163,7 +167,7 @@ $(document).ready(function(){
                 displaySuggestion($(coffee), 'Try tapping instead');
             }
         } else  if (showLiquid === 2) {
-            $(coffee).addClass('no-drinks');
+            displaySuggestion($(coffee), 'Try tapping instead');
         } else if (showLiquid === 3) {
             origLiquidHeight.coffee = liquidHeight.coffee;
             if (drinks.latte.poured) {
@@ -185,11 +189,11 @@ $(document).ready(function(){
             }
             if (drinks.doubleLatte.poured) {
                 counter = 0;
-                $(coffee).addClass('no-drinks');
+                displaySuggestion($(coffee), 'Try tapping instead');
             }
             if (drinks.capuccino.poured) {
                 counter = 0;
-                $(coffee).addClass('no-drinks');
+                displaySuggestion($(coffee), 'Try tapping instead');
             }
         }
     });
@@ -236,8 +240,7 @@ $(document).ready(function(){
                 }, 1);
             }
             if (drinks.dryCapuccino.poured) {
-                $(foamedMilk).addClass('no-drinks');
-                // TODO: add .suggestion content and behaviour
+                displaySuggestion($(foamedMilk), 'Try tapping instead');
             }
         } else if (showLiquid === 3) {
             if (drinks.latte.poured) {
@@ -275,7 +278,7 @@ $(document).ready(function(){
                 }, 1);
             }
             if (drinks.capuccino.poured) {
-                $(foamedMilk).addClass('no-drinks');
+                displaySuggestion($(foamedMilk), 'Try tapping instead');
             }
         }
     });
@@ -329,12 +332,12 @@ $(document).ready(function(){
         if (showLiquid === 2) {
 
             if (drinks.flatWhite.poured) {
-                $(steamedMilk).addClass('no-drinks');
+                displaySuggestion($(steamedMilk), 'Try tapping instead');
                 // TODO: add .suggestion content and behaviour
             }
 
         } else if (showLiquid === 3) {
-            $(steamedMilk).addClass('no-drinks');
+            displaySuggestion($(steamedMilk), 'Try tapping instead');
         }
     });
 

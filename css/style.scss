@@ -63,6 +63,9 @@
 .flip-in-x {
     backface-visibility: visible !important;
     animation-name: flipInX;
+    &.first-pour {
+        animation-delay: .5s;
+    }
 }
 @keyframes flipOutX {
   from {
@@ -101,6 +104,7 @@ body {
     left: 20%;
     top: 5%;
 }
+
 .drink {
     color: black;
     text-align: center;
@@ -129,17 +133,11 @@ body {
 .liquid {
     width: 100%;
     height: 20%;
-    transition: height 0.1s cubic-bezier(.17,.67,.72,1.25);
-    transition: opacity 0.25s ease-out;
     &.not-poured {
         height: 0;
-        transition: height 0.1s cubic-bezier(.17,.67,.72,1.25);
-        transition: opacity 0.25s ease-out;
     }
     &.drop {
         height: 5%;
-        transition: height 0.1s cubic-bezier(.17,.67,.72,1.25);
-        transition: opacity 0.25s ease-out;
     }
     &.half {
         height: 10%;
@@ -157,7 +155,11 @@ body {
     background-color: #0D0701; // fallback
     background-image: linear-gradient(-180deg, #402200 0%, #0D0701 100%);
     align-self: flex-end;
+    transition: height 0.15s cubic-bezier(.17,.67,.72,1.4);
     &:after {}
+    &.first-pour {
+        transition-delay: .5s;
+    }
 
 }
 .steamed-milk {

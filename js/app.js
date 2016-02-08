@@ -83,6 +83,16 @@ function currentDrink(name) {
         }
     }
 }
+function displaySuggestion(liquid, message) {
+    liquid.addClass('no-drinks');
+    suggestion.addClass('flip-in-x').html(message).show();
+        setTimeout(function () {
+            suggestion.addClass('flip-out-x').removeClass('flip-in-x');
+            setTimeout(function(){
+                suggestion.hide().removeClass('flip-out-x').html('');
+            }, 400);
+        }, 1500);
+}
 
 // function handleOrientation(event) {
 //     var x = Math.floor(360 - event.alpha);  // In degree in the range [-180,180]
@@ -150,11 +160,7 @@ $(document).ready(function(){
                     }
                 }, 1);
             } else if (drinks.tripleEspresso.poured) {
-                $(coffee).addClass('no-drinks');
-                suggestion.addClass('flip-in-x').html('Try tapping instead').show();
-                setTimeout(function () {
-                    suggestion.html('').hide().removeClass('flip-in-x');
-                }, 2000);
+                displaySuggestion($(coffee), 'Try tapping instead');
             }
         } else  if (showLiquid === 2) {
             $(coffee).addClass('no-drinks');
@@ -372,7 +378,7 @@ $(document).ready(function(){
         $(steamedMilk).css({'height': ''});
         scaleBy = 0;
         suggestion.html('').hide().removeClass('flip-in-x');
-        
+
         if (showLiquid === 2) { // cortado
             $(foamedMilk).removeClass('not-poured').addClass('half');
             currentDrink('cortado');

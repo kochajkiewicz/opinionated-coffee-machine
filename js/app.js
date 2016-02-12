@@ -146,7 +146,7 @@ function repeatOften() {
   globalID = requestAnimationFrame(repeatOften);
 }
 
-function pourCoffee(){
+function pourCoffee(xx){
 
     // TODO: get current height
     // TODO: get multipliers from object
@@ -155,7 +155,10 @@ function pourCoffee(){
 
     console.log('coffee height: ' + coffee.height());
     coffee.height(scaleBy + 1);
-    pouring = requestAnimationFrame(pourCoffee);
+    console.log('xx :' + xx);
+    pouring = requestAnimationFrame(function(){
+        pourCoffee(xx);
+    });
     if (coffee.height() === 222) {
         currentDrink('doubleEspresso');
     } else if (coffee.height() === 333) {
@@ -164,6 +167,7 @@ function pourCoffee(){
     }
 }
 function pourSteamedMilk(){
+    if (steamedMilk.height() === xxx ) {}
 
 }
 function pourFoamedMilk(){
@@ -205,7 +209,7 @@ $(document).ready(function(){
         if (showLiquid === 1 ) {
             // new pours check
             if (drinks.espresso.poured) {
-                pouring = requestAnimationFrame(pourCoffee);
+                pouring = requestAnimationFrame(pourCoffee(12));
             }
 
             else if (drinks.doubleEspresso.poured){
@@ -268,6 +272,7 @@ $(document).ready(function(){
             }
             if (drinks.doubleEspresso.poured) {
                 coffee.height(origLiquidHeight.coffee * 2);
+                cancelAnimationFrame(pouring);
             }
             else if (drinks.tripleEspresso.poured) {
                 coffee.removeClass('no-drinks');

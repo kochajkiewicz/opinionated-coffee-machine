@@ -30,39 +30,66 @@ var suggestion = $('#suggestion');
 var drinks = {
     espresso: {
         poured: false,
-        name: 'espresso'
+        name: 'espresso',
+        coffeq: 1,
+        smilkq: 0,
+        fmilkq: 0
     },
     doubleEspresso: {
         poured: false,
-        name: 'double espresso'
+        name: 'double espresso',
+        coffeq: 2,
+        smilkq: 0,
+        fmilkq: 0
     },
     tripleEspresso: {
         poured: false,
-        name: 'triple espresso'
+        name: 'triple espresso',
+        coffeq: 3,
+        smilkq: 0,
+        fmilkq: 0
     },
     cortado:{
         poured: false,
-        name: 'cortado'
+        name: 'cortado',
+        coffeq: 1,
+        smilkq: 0,
+        fmilkq: 0.5
     },
     flatWhite: {
         poured: false,
-        name: 'flat white'
+        name: 'flat white',
+        coffeq: 1,
+        smilkq: 2,
+        fmilkq: 0
     },
     dryCapuccino: {
         poured: false,
-        name: 'dry capuccino'
+        name: 'dry capuccino',
+        coffeq: 1,
+        smilkq: 0,
+        fmilkq: 2
     },
     latte: {
         poured: false,
-        name: 'latte'
+        name: 'latte',
+        coffeq: 1,
+        smilkq: 2,
+        fmilkq: 0.25
     },
     doubleLatte: {
         poured: false,
-        name: 'double latte'
+        name: 'double latte',
+        coffeq: 2,
+        smilkq: 2,
+        fmilkq: 0.25
     },
     capuccino: {
         poured: false,
-        name: 'capuccino'
+        name: 'capuccino',
+        coffeq: 1,
+        smilkq: 1,
+        fmilkq: 1
     }
 };
 
@@ -123,12 +150,6 @@ function displaySuggestion(liquid, message) {
 //     console.log('not supported');
 // }
 
-function pour(liquid, x, drinkname) {
-    for (i=liquidHeight[liquid]; i < liquidHeight[liquid] * x; i++) {
-        console.log(i);
-    }
-}
-
 // ++counter;
 // if (counter >= origLiquidHeight.coffee && !drinks.doubleEspresso.poured) { // double espresso
 //     currentDrink('doubleEspresso');
@@ -141,31 +162,31 @@ function pour(liquid, x, drinkname) {
 //     coffee.height(scaleBy);
 // }
 
-function repeatOften() {
-  $("<div />").appendTo("body");
-  globalID = requestAnimationFrame(repeatOften);
-}
-
-function pourCoffee(xx) {
+function pourCoffee(i, h) {
 
     // TODO: get current height
     // TODO: get multipliers from object
 
+    //pourTo = coffee.height() * i;
     scaleBy = coffee.height();
 
     console.log('coffee height: ' + coffee.height());
-    coffee.height(scaleBy + 1);
-    console.log('xx :' + xx);
-    pouring = requestAnimationFrame(function(){
-        pourCoffee(xx);
+    //console.log('pourTo:' + pourTo);
+    coffee.height(scaleBy + 10);
+    //console.log('i :' + i);
+
+    // if (drinks.espresso.poured && coffee.height() === pourTo) {
+    //     currentDrink('doubleEspresso');
+    // } else if (drinks.doubleEspresso.poured && coffee.height() === pourTo * 1.5) {
+    //     currentDrink('tripleEspresso');
+    //     cancelAnimationFrame(pouring);
+    // }
+    pouring = requestAnimationFrame(function() {
+        pourCoffee(i, h);
     });
-    if (coffee.height() === 222) {
-        currentDrink('doubleEspresso');
-    } else if (coffee.height() === 333) {
-        currentDrink('tripleEspresso');
-        cancelAnimationFrame(pouring);
-    }
 }
+
+
 function pourSteamedMilk(){
     if (steamedMilk.height() === xxx ) {}
 
@@ -206,37 +227,45 @@ $(document).ready(function(){
     coffeePour.on('press', function(e) {
         liquidHeight.coffee = Math.floor(coffee.height());
         origLiquidHeight.coffee = liquidHeight.coffee;
+
         if (showLiquid === 1 ) {
+            requestAnimationFrame(pourCoffee(1));
+            if (coffee.height() >= 200 && drinks.espresso.poured) {
+                currentDrink('doubleEspresso');
+            }
+            if (drinks.doubleEspresso.poured) {
+                // pour until triple
+            }
+            if (drinks.tripleEspresso.poured) {
+                displaySuggestion(coffee, 'Try tapping instead');
+            }
             // new pours check
-            if (drinks.espresso.poured) {
-                pouring = requestAnimationFrame(pourCoffee(12));
-            }
-
-            else if (drinks.doubleEspresso.poured){
-
-                pouring = requestAnimationFrame(pourCoffee(32));
-            }
-            //else if (drinks.tripleEspresso.poured) {
-            //     displaySuggestion(coffee, 'Try tapping instead');
+            // if (drinks.espresso.poured) {
+            //     pouring = requestAnimationFrame(pourCoffee(2));
             // }
-        } else  if (showLiquid === 2) {
+            // else if (drinks.doubleEspresso.poured){
+            //
+            //     pouring = requestAnimationFrame(pourCoffee(3));
+            // }
+            //requestAnimationFrame(pourCoffee(2));
+        } else if (showLiquid === 2) {
             displaySuggestion(coffee, 'Try tapping instead');
         } else if (showLiquid === 3) {
             origLiquidHeight.coffee = liquidHeight.coffee;
             if (drinks.latte.poured) {
-                pouring = setInterval(function () {
-                    ++counter;
-                    if (counter >= origLiquidHeight.coffee) {
-                        clearInterval(pouring);
-                        currentDrink('doubleLatte');
-                    }
-
-                    scaleBy = origLiquidHeight.coffee + counter;
-
-                    if (!drinks.doubleLatte.poured) {
-                        coffee.height(scaleBy);
-                    }
-                }, 1);
+                // pouring = setInterval(function () {
+                //     ++counter;
+                //     if (counter >= origLiquidHeight.coffee) {
+                //         clearInterval(pouring);
+                //         currentDrink('doubleLatte');
+                //     }
+                //
+                //     scaleBy = origLiquidHeight.coffee + counter;
+                //
+                //     if (!drinks.doubleLatte.poured) {
+                //         coffee.height(scaleBy);
+                //     }
+                // }, 1);
             }
             if (drinks.doubleLatte.poured) {
                 counter = 0;

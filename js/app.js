@@ -146,7 +146,7 @@ function repeatOften() {
   globalID = requestAnimationFrame(repeatOften);
 }
 
-function pourCoffee(xx){
+function pourCoffee(xx) {
 
     // TODO: get current height
     // TODO: get multipliers from object
@@ -214,21 +214,7 @@ $(document).ready(function(){
 
             else if (drinks.doubleEspresso.poured){
 
-            //     origLiquidHeight.coffee = liquidHeight.coffee / 2;
-            //     currentDrink('espresso');
-            //     pouring = setInterval(function () {
-            //         ++counter;
-            //         if (counter >= origLiquidHeight.coffee && !drinks.doubleEspresso.poured) { // double espresso
-            //             currentDrink('doubleEspresso');
-            //         } else if (counter >= (origLiquidHeight.coffee * 2)) { // triple espresso
-            //             clearInterval(pouring);
-            //             currentDrink('tripleEspresso');
-            //         }
-            //         scaleBy = origLiquidHeight.coffee + counter;
-            //         if (!drinks.tripleEspresso.poured) {
-            //             coffee.height(scaleBy);
-            //         }
-            //     }, 1);
+                pouring = requestAnimationFrame(pourCoffee(32));
             }
             //else if (drinks.tripleEspresso.poured) {
             //     displaySuggestion(coffee, 'Try tapping instead');

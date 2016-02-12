@@ -29,7 +29,7 @@ var suggestion = $('#suggestion');
 
 var drinks = {
     espresso: {
-        poured: true,
+        poured: false,
         name: 'espresso'
     },
     doubleEspresso: {
@@ -141,12 +141,34 @@ function pour(liquid, x, drinkname) {
 //     coffee.height(scaleBy);
 // }
 
+function repeatOften() {
+  $("<div />").appendTo("body");
+  globalID = requestAnimationFrame(repeatOften);
+}
+
 function pourCoffee(){
+
+    // TODO: get current height
+    // TODO: get multipliers from object
+
     scaleBy = coffee.height();
+
     console.log('coffee height: ' + coffee.height());
-    coffee.height(scaleBy);
+    coffee.height(scaleBy + 1);
     pouring = requestAnimationFrame(pourCoffee);
-};
+    if (coffee.height() === 222) {
+        currentDrink('doubleEspresso');
+    } else if (coffee.height() === 333) {
+        currentDrink('tripleEspresso');
+        cancelAnimationFrame(pouring);
+    }
+}
+function pourSteamedMilk(){
+
+}
+function pourFoamedMilk(){
+
+}
 // --------------------------------------- requestAnimationFrame experiment -----------------------------------------------
 
 // run loop from existing to desired height in PX.
@@ -169,22 +191,21 @@ function pourCoffee(){
 $(document).ready(function(){
 
     // TODO: onload animations - coffee & drink name
-    // coffee.removeClass('not-poured', 'first-pour');
-    // setTimeout(function(){
-    //         currentDrink('espresso');
-    // }, 750);
+    coffee.removeClass('not-poured');
+    setTimeout(function(){
+        coffee.removeClass('first-pour');
+    }, 300);
+    setTimeout(function(){
+        currentDrink('espresso');
+    }, 750);
 
     coffeePour.on('press', function(e) {
         liquidHeight.coffee = Math.floor(coffee.height());
+        origLiquidHeight.coffee = liquidHeight.coffee;
         if (showLiquid === 1 ) {
             // new pours check
             if (drinks.espresso.poured) {
-                // origLiquidHeight.coffee = liquidHeight.coffee;
-                // while (i<origLiquidHeight.coffee) {
-                    //++i;
-                    pouring = requestAnimationFrame(pourCoffee);
-                //}
-                //currentDrink('doubleEspresso');
+                pouring = requestAnimationFrame(pourCoffee);
             }
 
             else if (drinks.doubleEspresso.poured){

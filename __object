@@ -77,3 +77,19 @@ if (showLiquid = 3) {  - start with latte
         }
     }
 }
+
+
+pourcoffee(multiplier, drink name) {
+
+pourTo = height * multiplier
+
+start pour
+
+when height = pourTo {
+    change drinkname
+    if drinkname - espresso {
+        don't stop pouring
+    } else {
+        stop pouring
+    }
+}

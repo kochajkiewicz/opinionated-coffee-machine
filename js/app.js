@@ -243,7 +243,6 @@ $(document).ready(function(){
             if (drinks.cortado.poured) {
                 origLiquidHeight.foamedMilk = liquidHeight.foamedMilk;
                 origLiquidHeight.coffee = liquidHeight.coffee;
-
                 pouring = pourFoamedMilk('dryCapuccino', origLiquidHeight.coffee * drinks.dryCapuccino.fmilkq);
             }
             if (drinks.dryCapuccino.poured) {

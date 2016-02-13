@@ -25,6 +25,7 @@ var glass = $('#container');
 var glassFill = propagating(new Hammer($('#container')[0]));
 var drink = $('#drink');
 var suggestion = $('#suggestion');
+var pourButton = $('#pour-now');
 
 var drinks = {
     espresso: {
@@ -182,6 +183,9 @@ $(document).ready(function(){
     }, 300);
     setTimeout(function(){
         currentDrink('espresso');
+        setTimeout(function(){
+            pourButton.removeClass('not-shown');
+        }, 250);
     }, 750);
 
     coffeePour.on('press', function(e) {

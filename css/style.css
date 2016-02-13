@@ -271,6 +271,27 @@ body {
   color: gray;
   animation-duration: .5s; }
 
+.pour-now {
+  position: absolute;
+  bottom: 5vh;
+  right: 3vh;
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  outline: 0;
+  border: 0;
+  border-radius: 60px;
+  z-index: 2;
+  animation-duration: .5s;
+  transition: translateY ease-in-out .15s; }
+  .pour-now.not-shown {
+    display: none; }
+  .pour-now:active {
+    transform: translateY(2px); }
+
 .container {
   display: flex;
   flex-direction: column-reverse;
@@ -313,15 +334,7 @@ body {
   background-image: linear-gradient(-180deg, #FFFCED 0%, #F7F4E6 100%);
   transition: height 0.15s cubic-bezier(0.17, 0.67, 0.72, 1.25); }
 
-.pour-now {
-  position: absolute;
-  top: 5vh;
-  right: 3vh;
-  width: 50px;
-  height: 50px;
-  display: block;
-  margin: 0;
-  padding: 0;
-  background-color: black;
-  border: 0;
-  border-radius: 50px; }
+.unselectable {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent; }

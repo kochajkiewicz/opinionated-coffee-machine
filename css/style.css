@@ -252,23 +252,27 @@ body {
 
 .text-container {
   position: absolute;
-  width: 60%;
-  left: 20%;
-  top: 5%; }
+  width: 80%;
+  left: 10%;
+  top: 5%;
+  z-index: 2; }
 
 .drink {
   color: black;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
   line-height: 1;
   margin: 0.67em 0 0.335em 0;
+  cursor: pointer;
   animation-duration: .5s; }
+  .drink.clicked {
+    transform: translateY(2px); }
 
 .suggestion {
   margin: 0;
   text-align: center;
-  color: gray;
+  color: #3a210d;
   animation-duration: .5s; }
 
 .pour-now {
@@ -280,13 +284,14 @@ body {
   display: block;
   margin: 0;
   padding: 0;
-  background-color: white;
+  background-color: #CA3A16;
   outline: 0;
   border: 0;
   border-radius: 60px;
   z-index: 2;
   animation-duration: .5s;
-  transition: translateY ease-in-out .15s; }
+  transition: translateY ease-in-out .15s;
+  display: none; }
   .pour-now.not-shown {
     display: none; }
   .pour-now:active {
@@ -299,7 +304,7 @@ body {
   height: 100%;
   transform-origin: 50% 100% 0;
   background-color: white;
-  background-image: linear-gradient(-180deg, #FFFFFF 0%, #EBE5DF 100%); }
+  background-image: linear-gradient(-180deg, #FFFFFF 0%, #FCF8EE 25%, #F4ECD7 80%); }
 
 .liquid {
   width: 100%;
@@ -319,7 +324,7 @@ body {
 
 .coffee {
   background-color: #0D0701;
-  background-image: linear-gradient(-180deg, #402200 0%, #0D0701 100%);
+  background-image: linear-gradient(-180deg, #633917 20%, #8F5C34 100%);
   align-self: flex-end;
   transition: height 0.15s cubic-bezier(0.17, 0.67, 0.72, 1.4); }
   .coffee.first-pour {
@@ -327,14 +332,34 @@ body {
 
 .steamed-milk {
   background-color: ghostwhite;
+  background-image: linear-gradient(-180deg, #FBF8F1 20%, #FFFFFF 66%);
   transition: height 0.15s cubic-bezier(0.17, 0.67, 0.72, 1.25); }
+  .steamed-milk.reverse {
+    background-image: linear-gradient(-180deg, #FFFFFF 20%, #FBF8F1 66%); }
 
 .foamed-milk {
   margin-top: auto;
-  background-image: linear-gradient(-180deg, #FFFCED 0%, #F7F4E6 100%);
+  background-image: linear-gradient(-180deg, #FFFFFF 25%, #FEFDF9 100%);
   transition: height 0.15s cubic-bezier(0.17, 0.67, 0.72, 1.25); }
+  .foamed-milk.reverse {
+    background-image: linear-gradient(-180deg, #FEFDF9 25%, #FFFFFF 100%); }
 
 .unselectable {
   -webkit-user-select: none;
   -webkit-user-drag: none;
   -webkit-tap-highlight-color: transparent; }
+
+.circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  -webkit-transition: all 2s linear;
+  -webkit-transform: scale(0.1);
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.circle.zoom {
+  opacity: 0;
+  -webkit-transform: none; }

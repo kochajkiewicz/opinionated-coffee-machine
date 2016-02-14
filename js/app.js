@@ -99,7 +99,7 @@ function currentDrink(name) {
             if (key === name) {
                 drinks[key]['poured'] = true;
                 // TODO: change name on screen
-                drink.html('').hide().addClass('flip-in-x').html(drinks[key]['name']).show();
+                drink.html('').hide().addClass('flip-in-x').removeClass('clicked').html(drinks[key]['name']).show();
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
                 }, 500);
@@ -163,6 +163,24 @@ function spillCoffee(h) {
         });
     }
 }
+function spillSteamedMilk(h) {
+    scaleBy = steamedMilk.height();
+    steamedMilk.height(scaleBy - 30);
+    if (scaleBy > h) {
+        pouring = requestAnimationFrame(function() {
+            spillSteamedMilk(h);
+        });
+    }
+}
+function spillFoamedMilk(h) {
+    scaleBy = foamedMilk.height();
+    foamedMilk.height(scaleBy - 30);
+    if (scaleBy > h) {
+        pouring = requestAnimationFrame(function() {
+            spillFoamedMilk(h);
+        });
+    }
+}
 
 function pourFoamedMilk(newDrink, h){
     scaleBy = foamedMilk.height();
@@ -185,7 +203,7 @@ $(document).ready(function(){
         currentDrink('espresso');
         setTimeout(function(){
             pourButton.removeClass('not-shown');
-        }, 250);
+        }, 330);
     }, 750);
 
     coffeePour.on('press', function(e) {
@@ -300,7 +318,7 @@ $(document).ready(function(){
         if (showLiquid === 2) {
             if (drinks.cortado.poured || drinks.dryCapuccino.poured) {
                 foamedMilk.removeClass('half').css({'height':''}).addClass('not-poured');
-                steamedMilk.removeClass('not-poured').addClass('double');
+                steamedMilk.removeClass('not-poured').addClass('double reverse');
                 currentDrink('flatWhite');
                 e.stopPropagation();
             }
@@ -332,7 +350,7 @@ $(document).ready(function(){
     steamedMilkPour.on('tap', function(e){
         if (showLiquid === 2) {
             if (drinks.flatWhite.poured) {
-                steamedMilk.removeClass('double').addClass('not-poured');
+                steamedMilk.removeClass('double reverse').addClass('not-poured');
                 foamedMilk.removeClass('not-poured').addClass('half');
                 currentDrink('cortado');
                 e.stopPropagation();
@@ -365,7 +383,14 @@ $(document).ready(function(){
             currentDrink('espresso');
         }
     });
+    drink.on('click', function(e){
+        $(this).toggleClass('clicked');
+        console.log(e.pageX+ ' , ' + e.pageY)
+        // TODO: show circle here on click
+    });
+    // TODO: add brewing function here
 });
+
 // function handleOrientation(event) {
 //     var x = Math.floor(360 - event.alpha);  // In degree in the range [-180,180]
 //

@@ -393,9 +393,9 @@ $(document).ready(function(){
                 spillFoamedMilk(0);
             }
             setTimeout(function(){
+                showLiquid = 1;
                 circle.removeClass('ripple');
                 setTimeout(function(){
-                    showLiquid = 1;
                     coffee.css({'height':''}).removeClass('not-poured');
                     steamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
                     foamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');

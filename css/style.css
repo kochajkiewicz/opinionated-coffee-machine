@@ -272,10 +272,11 @@ body {
   line-height: 1;
   margin: 0.67em 0 0.335em 0;
   cursor: pointer;
-  animation-duration: .5s; }
+  transition: 0.15s cubic-bezier(0.17, 0.67, 0.72, 1.25);
+  animation-duration: .25s; }
   .drink.clicked {
     opacity: .33;
-    transform: scale(0.85); }
+    transform: scale(0.95); }
 
 .suggestion {
   margin: 0;

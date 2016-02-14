@@ -100,7 +100,7 @@ function currentDrink(name) {
             if (key === name) {
                 drinks[key]['poured'] = true;
                 // TODO: change name on screen
-                drink.html('').hide().addClass('flip-in-x').removeClass('clicked').html(drinks[key]['name']).show();
+                drink.hide().html('').addClass('flip-in-x').removeClass('clicked').html(drinks[key]['name']).show();
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
                 }, 500);

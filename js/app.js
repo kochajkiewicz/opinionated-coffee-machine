@@ -1,5 +1,5 @@
 // Document variables
-var pouring, pouringNeg, scaleBy;
+var pouring, pouringNeg, scaleBy, brewCoffee, brewSMilk, brewFMilk;
 var liquidHeight = {
     coffee: '',
     steamedMilk: '',
@@ -25,7 +25,8 @@ var glass = $('#container');
 var glassFill = propagating(new Hammer($('#container')[0]));
 var drink = $('#drink');
 var suggestion = $('#suggestion');
-var pourButton = $('#pour-now');
+var circle = $('#circle');
+
 
 var drinks = {
     espresso: {
@@ -146,39 +147,11 @@ function pourCoffee(newDrink, h) {
     else if (newDrink === 'doubleLatte') {
         if (scaleBy < h) {
             pouring = requestAnimationFrame(function() {
-                pourCoffee(newDrink, h);
+            pourCoffee(newDrink, h);
             });
         } else {
             currentDrink(newDrink);
         }
-    }
-}
-
-function spillCoffee(h) {
-    scaleBy = coffee.height();
-    coffee.height(scaleBy - 30);
-    if (scaleBy > h) {
-        pouring = requestAnimationFrame(function() {
-            spillCoffee(h);
-        });
-    }
-}
-function spillSteamedMilk(h) {
-    scaleBy = steamedMilk.height();
-    steamedMilk.height(scaleBy - 30);
-    if (scaleBy > h) {
-        pouring = requestAnimationFrame(function() {
-            spillSteamedMilk(h);
-        });
-    }
-}
-function spillFoamedMilk(h) {
-    scaleBy = foamedMilk.height();
-    foamedMilk.height(scaleBy - 30);
-    if (scaleBy > h) {
-        pouring = requestAnimationFrame(function() {
-            spillFoamedMilk(h);
-        });
     }
 }
 
@@ -194,6 +167,28 @@ function pourFoamedMilk(newDrink, h){
         }
 }
 
+function spillCoffee(h) {
+    scaleBy = coffee.height();
+    for (i = scaleBy; i > h; i-- ) {
+        coffee.height(i);
+    }
+    coffee.addClass('not-poured');
+}
+function spillSteamedMilk(h) {
+    scaleBy = steamedMilk.height();
+    for (i = scaleBy; i > h; i-- ) {
+        steamedMilk.height(i);
+    }
+    steamedMilk.addClass('not-poured');
+}
+function spillFoamedMilk(h) {
+    scaleBy = foamedMilk.height();
+    for (i = scaleBy; i > h; i-- ) {
+        foamedMilk.height(i);
+    }
+    foamedMilk.addClass('not-poured');
+}
+
 $(document).ready(function(){
 
     setTimeout(function(){
@@ -201,9 +196,6 @@ $(document).ready(function(){
     }, 300);
     setTimeout(function(){
         currentDrink('espresso');
-        setTimeout(function(){
-            pourButton.removeClass('not-shown');
-        }, 330);
     }, 750);
 
     coffeePour.on('press', function(e) {
@@ -211,23 +203,23 @@ $(document).ready(function(){
         origLiquidHeight.coffee = liquidHeight.coffee;
         if (showLiquid === 1 ) {
             if (drinks.tripleEspresso.poured) {
-                displaySuggestion(coffee, 'Try tapping instead');
+                displaySuggestion(coffee, 'Tap here to pour or below to change');
             } else if (drinks.doubleEspresso.poured) {
                 pouring = requestAnimationFrame(pourCoffee('tripleEspresso', origLiquidHeight.coffee/2 * drinks.tripleEspresso.coffeq));
             } else {
                 pouring = requestAnimationFrame(pourCoffee('tripleEspresso', origLiquidHeight.coffee * drinks.tripleEspresso.coffeq));
             }
         } else if (showLiquid === 2) {
-            displaySuggestion(coffee, 'Try tapping instead');
+            displaySuggestion(coffee, 'Tap here to pour or below to change');
         } else if (showLiquid === 3) {
             if (drinks.latte.poured) {
                 pouring = pourCoffee('doubleLatte', origLiquidHeight.coffee * drinks.doubleLatte.coffeq);
             }
             if (drinks.doubleLatte.poured) {
-                displaySuggestion(coffee, 'Try tapping instead');
+                displaySuggestion(coffee, 'Tap here to pour or below to change');
             }
             if (drinks.capuccino.poured) {
-                displaySuggestion(coffee, 'Try tapping instead');
+                displaySuggestion(coffee, 'Tap here to pour or below to change');
             }
         }
     });
@@ -268,7 +260,7 @@ $(document).ready(function(){
                 pouring = pourFoamedMilk('dryCapuccino', origLiquidHeight.coffee * drinks.dryCapuccino.fmilkq);
             }
             if (drinks.dryCapuccino.poured) {
-                displaySuggestion(foamedMilk, 'Try tapping instead');
+                displaySuggestion(foamedMilk, 'Tap here to pour or below to change');
             }
         } else if (showLiquid === 3) {
             if (drinks.latte.poured) {
@@ -283,7 +275,7 @@ $(document).ready(function(){
                 pouringNeg = spillCoffee(origLiquidHeight.coffee / 2);
             }
             if (drinks.capuccino.poured) {
-                displaySuggestion(foamedMilk, 'Try tapping instead');
+                displaySuggestion(foamedMilk, 'Tap here to pour or below to change');
             }
         }
     });
@@ -328,10 +320,10 @@ $(document).ready(function(){
     steamedMilkPour.on('press', function(e){
         if (showLiquid === 2) {
             if (drinks.flatWhite.poured) {
-                displaySuggestion(steamedMilk, 'Try tapping instead');
+                displaySuggestion(steamedMilk, 'Tap here to pour or below to change');
             }
         } else if (showLiquid === 3) {
-            displaySuggestion(steamedMilk, 'Try tapping instead');
+            displaySuggestion(steamedMilk, 'Tap here to pour or below to change');
         }
     });
 
@@ -384,15 +376,35 @@ $(document).ready(function(){
         }
     });
     drink.on('click', function(e){
-        //$(this).toggleClass('clicked');
-        $('.circle').css({
-            'left': e.pageX - 15,
-            'top': e.pageY - 15
-        }).removeClass('zoom');
-        console.log(e.pageX+ ' , ' + e.pageY)
-        // TODO: show circle here on click
+        if (!$(this).hasClass('clicked')) {
+            circle.css({
+                'left': e.pageX - 15,
+                'top': e.pageY - 15
+            }).addClass('ripple');
+            $(this).addClass('clicked');
+
+            // TODO: pour drinks here
+
+            spillCoffee(0);
+            if (!steamedMilk.hasClass('not-poured')) {
+                spillSteamedMilk(0);
+            }
+            if (!foamedMilk.hasClass('not-poured')) {
+                spillFoamedMilk(0);
+            }
+            setTimeout(function(){
+                circle.removeClass('ripple');
+                setTimeout(function(){
+                    showLiquid = 1;
+                    coffee.css({'height':''}).removeClass('not-poured');
+                    steamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
+                    foamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
+                    drink.removeClass('clicked');
+                    currentDrink('espresso');
+                },500);
+            }, 500);
+        }
     });
-    // TODO: add brewing function here
 });
 
 // function handleOrientation(event) {

@@ -240,6 +240,13 @@ input[type="checkbox"], input[type="radio"] {
   animation-name: flipOutX;
   backface-visibility: visible !important; }
 
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    transform: scale(20); } }
+.ripple {
+  animation-name: ripple; }
+
 html {
   height: 100%;
   min-height: 100%; }
@@ -267,35 +274,14 @@ body {
   cursor: pointer;
   animation-duration: .5s; }
   .drink.clicked {
-    transform: translateY(2px); }
+    opacity: .33;
+    transform: scale(0.85); }
 
 .suggestion {
   margin: 0;
   text-align: center;
   color: #3a210d;
   animation-duration: .5s; }
-
-.pour-now {
-  position: absolute;
-  bottom: 5vh;
-  right: 3vh;
-  width: 60px;
-  height: 60px;
-  display: block;
-  margin: 0;
-  padding: 0;
-  background-color: #CA3A16;
-  outline: 0;
-  border: 0;
-  border-radius: 60px;
-  z-index: 2;
-  animation-duration: .5s;
-  transition: translateY ease-in-out .15s;
-  display: none; }
-  .pour-now.not-shown {
-    display: none; }
-  .pour-now:active {
-    transform: translateY(2px); }
 
 .container {
   display: flex;
@@ -350,14 +336,12 @@ body {
   -webkit-tap-highlight-color: transparent; }
 
 .circle {
+  position: absolute;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: red;
-  transform-origin: 50%;
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-.circle.zoom {
-  opacity: 0; }
+  transform: scale(0);
+  opacity: 1;
+  animation-duration: .5s;
+  animation-timing-function: ease-out; }

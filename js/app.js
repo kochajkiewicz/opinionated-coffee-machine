@@ -384,7 +384,11 @@ $(document).ready(function(){
         }
     });
     drink.on('click', function(e){
-        $(this).toggleClass('clicked');
+        //$(this).toggleClass('clicked');
+        $('.circle').css({
+            'left': e.pageX - 15,
+            'top': e.pageY - 15
+        }).removeClass('zoom');
         console.log(e.pageX+ ' , ' + e.pageY)
         // TODO: show circle here on click
     });

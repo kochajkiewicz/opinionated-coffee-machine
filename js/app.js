@@ -180,7 +180,7 @@ function spillCoffee(h) {
         });
     } else {
         cancelAnimationFrame(pouringNeg);
-        coffee.removeClass().addClass('liquid coffee not-poured');
+        //coffee.removeClass().addClass('liquid coffee');
     }
 
 }
@@ -193,7 +193,6 @@ function spillSteamedMilk(h) {
         });
     } else {
         cancelAnimationFrame(pouringNeg);
-        steamedMilk.removeClass().addClass('liquid steamed-milk not-poured');
     }
 }
 function spillFoamedMilk(h) {
@@ -205,7 +204,6 @@ function spillFoamedMilk(h) {
         });
     } else {
         cancelAnimationFrame(pouringNeg);
-        foamedMilk.removeClass().addClass('liquid foamed-milk not-poured');
     }
 }
 
@@ -216,7 +214,7 @@ $(document).ready(function(){
     }, 300);
     setTimeout(function(){
         currentDrink('espresso');
-        displaySuggestion(false, 'Try pressing to pour, tap to add milk or brew')
+        displaySuggestion(false, 'Press to pour more, tap to add milk or brew')
     }, 750);
 
     coffeePour.on('press', function(e) {
@@ -224,23 +222,23 @@ $(document).ready(function(){
         origLiquidHeight.coffee = liquidHeight.coffee;
         if (showLiquid === 1 ) {
             if (drinks.tripleEspresso.poured) {
-                displaySuggestion(coffee, 'Tap here to pour or below to change');
+                displaySuggestion(coffee, 'Tap the name to pour or below to change');
             } else if (drinks.doubleEspresso.poured) {
                 pouring = pourCoffee('tripleEspresso', origLiquidHeight.coffee/2 * drinks.tripleEspresso.coffeq);
             } else {
                 pouring = pourCoffee('tripleEspresso', origLiquidHeight.coffee * drinks.tripleEspresso.coffeq);
             }
         } else if (showLiquid === 2) {
-            displaySuggestion(coffee, 'Tap here to pour or below to change');
+            displaySuggestion(coffee, 'Tap the name to pour or below to change');
         } else if (showLiquid === 3) {
             if (drinks.latte.poured) {
                 pouring = pourCoffee('doubleLatte', origLiquidHeight.coffee * drinks.doubleLatte.coffeq);
             }
             if (drinks.doubleLatte.poured) {
-                displaySuggestion(coffee, 'Tap here to pour or below to change');
+                displaySuggestion(coffee, 'Tap the name to pour or below to change');
             }
             if (drinks.capuccino.poured) {
-                displaySuggestion(coffee, 'Tap here to pour or below to change');
+                displaySuggestion(coffee, 'Tap the name to pour or below to change');
             }
         }
     });
@@ -281,7 +279,7 @@ $(document).ready(function(){
                 pouring = pourFoamedMilk('dryCapuccino', origLiquidHeight.coffee * drinks.dryCapuccino.fmilkq);
             }
             if (drinks.dryCapuccino.poured) {
-                displaySuggestion(foamedMilk, 'Tap here to pour or below to change');
+                displaySuggestion(foamedMilk, 'Tap the name to pour or below to change');
             }
         } else if (showLiquid === 3) {
             if (drinks.latte.poured) {
@@ -296,7 +294,7 @@ $(document).ready(function(){
                 pouringNeg = spillCoffee(origLiquidHeight.coffee / 2);
             }
             if (drinks.capuccino.poured) {
-                displaySuggestion(foamedMilk, 'Tap here to pour or below to change');
+                displaySuggestion(foamedMilk, 'Tap the name to pour or below to change');
             }
         }
     });
@@ -341,10 +339,10 @@ $(document).ready(function(){
     steamedMilkPour.on('press', function(e){
         if (showLiquid === 2) {
             if (drinks.flatWhite.poured) {
-                displaySuggestion(steamedMilk, 'Tap here to pour or below to change');
+                displaySuggestion(steamedMilk, 'Tap the name to pour or below to change');
             }
         } else if (showLiquid === 3) {
-            displaySuggestion(steamedMilk, 'Tap here to pour or below to change');
+            displaySuggestion(steamedMilk, 'Tap the name to pour or below to change');
         }
     });
 
@@ -414,18 +412,20 @@ $(document).ready(function(){
                 spillFoamedMilk(0);
             }
             setTimeout(function(){
-                showLiquid = 1;
                 circle.removeClass('ripple');
+                showLiquid = 1;
                 setTimeout(function(){
+                    // cleaning up
                     coffee.css({'height':''}).removeClass('not-poured');
-                    steamedMilk.css({'height':''}).addClass('not-poured');
-                    foamedMilk.css({'height':''}).addClass('not-poured');
+                    steamedMilk.css({'height':''}).removeClass('drop half double reverse').addClass('not-poured');
+                    foamedMilk.css({'height':''}).removeClass('drop half double reverse').addClass('not-poured');
                     // TODO: communicate that drink is poured
                     drink.removeClass('clicked');
                     currentDrink('espresso');
                 },500);
             }, 500);
         }
+        e.stopPropagation();
     });
 });
 

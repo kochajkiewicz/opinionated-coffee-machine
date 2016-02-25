@@ -113,14 +113,18 @@ function currentDrink(name) {
 }
 
 function displaySuggestion(liquid, message) {
-    liquid.addClass('no-drinks');
+    if (!liquid) {
+        console.log('nothing!')
+    } else {
+        liquid.addClass('no-drinks');
+    }
     suggestion.addClass('flip-in-x').html(message).show();
         setTimeout(function () {
             suggestion.addClass('flip-out-x').removeClass('flip-in-x');
             setTimeout(function(){
                 suggestion.hide().removeClass('flip-out-x').html('');
             }, 400);
-        }, 1500);
+        }, 1750);
 }
 
 function pourCoffee(newDrink, h) {
@@ -147,7 +151,7 @@ function pourCoffee(newDrink, h) {
     else if (newDrink === 'doubleLatte') {
         if (scaleBy < h) {
             pouring = requestAnimationFrame(function() {
-            pourCoffee(newDrink, h);
+                pourCoffee(newDrink, h);
             });
         } else {
             currentDrink(newDrink);
@@ -212,6 +216,7 @@ $(document).ready(function(){
     }, 300);
     setTimeout(function(){
         currentDrink('espresso');
+        displaySuggestion(false, 'Try pressing to pour, tap to add milk or brew')
     }, 750);
 
     coffeePour.on('press', function(e) {
@@ -221,9 +226,9 @@ $(document).ready(function(){
             if (drinks.tripleEspresso.poured) {
                 displaySuggestion(coffee, 'Tap here to pour or below to change');
             } else if (drinks.doubleEspresso.poured) {
-                pouring = requestAnimationFrame(pourCoffee('tripleEspresso', origLiquidHeight.coffee/2 * drinks.tripleEspresso.coffeq));
+                pouring = pourCoffee('tripleEspresso', origLiquidHeight.coffee/2 * drinks.tripleEspresso.coffeq);
             } else {
-                pouring = requestAnimationFrame(pourCoffee('tripleEspresso', origLiquidHeight.coffee * drinks.tripleEspresso.coffeq));
+                pouring = pourCoffee('tripleEspresso', origLiquidHeight.coffee * drinks.tripleEspresso.coffeq);
             }
         } else if (showLiquid === 2) {
             displaySuggestion(coffee, 'Tap here to pour or below to change');

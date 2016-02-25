@@ -101,28 +101,31 @@
 
 html {
     height: 100%;
-    min-height: 100%;
+    box-sizing: border-box;
 }
 body {
     height: 100%;
-    min-height: 100%;
-    font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-    overflow: hidden;
+    //min-height: 100%;
+    font-family: -apple-system, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+    padding-top: 40px;
+    background-image: linear-gradient(180deg, #230202 0%, #1D0303 100%);
+    //overflow: hidden;
 }
 .text-container {
     position: absolute;
     width: 80%;
     left: 10%;
-    top: 5%;
+    top: 20%;
     z-index: 2;
 }
 .drink {
-    color: black;
-    text-align: center;
     font-size: 2em;
-    font-weight: bold;
-    line-height: 1;
-    margin: 0.67em 0 0.335em 0;
+    font-weight: 200;
+    line-height: 1.1875;
+    margin: 0 0 0.1em 0;
+
+    text-align: center;
+    color: #381B04;
     cursor: pointer;
 
     transition: opacity .15s cubic-bezier(.17,.67,.72,1.25), transform .15s cubic-bezier(.17,.67,.72,1.25);
@@ -133,10 +136,34 @@ body {
     }
 }
 .suggestion {
+    font-size: 0.875em;
+    line-height: 1;
     margin: 0;
     text-align: center;
-    color: darken(#633917, 10%);
+    color: #8e7969;
     animation-duration: .5s;
+}
+.container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    height: calc(100% - 40px);
+    width: calc(100% - 40px);
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    transform-origin: 50% 100% 0;
+
+    background-color: white;
+    background-image: url('../img/droplets.svg'), linear-gradient(-180deg, #FFFFFF 0%, #FCF8EE 25%, #F4ECD7 80%);
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+
+    border-radius: 10px 10px 0 0;
+
+    // border-width: 0 20px 20px 20px;
+    // border-color: #FBF8EF;
+    // border-style: solid;
+    // border-radius: 0 0 60px 60px;
 }
 // .pour-now {
 //     position: absolute;
@@ -164,19 +191,7 @@ body {
 //         transform: translateY(2px);
 //     }
 // }
-.container {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    height: 100%;
-    transform-origin: 50% 100% 0;
-    background-color: white;
-    background-image: linear-gradient(-180deg, #FFFFFF 0%, #FCF8EE 25%, #F4ECD7 80%);
-    // border-width: 0 20px 20px 20px;
-    // border-color: #FBF8EF;
-    // border-style: solid;
-    // border-radius: 0 0 60px 60px;
-}
+
 .liquid {
     width: 100%;
     height: 20%;
@@ -235,7 +250,7 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 100%;
-    background-color: red;
+    background-color: #F9F4E7;
     transform: scale(0);
     opacity: 1;
     animation-duration: .5s;

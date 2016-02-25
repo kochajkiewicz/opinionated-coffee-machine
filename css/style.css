@@ -255,7 +255,8 @@ body {
   font-family: -apple-system, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
   box-sizing: border-box;
   padding-top: 40px;
-  background-image: linear-gradient(180deg, #230202 0%, #130000 100%); }
+  background-image: linear-gradient(180deg, #230202 0%, #130000 100%);
+  overflow: hidden; }
 
 .text-container {
   position: absolute;

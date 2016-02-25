@@ -169,24 +169,40 @@ function pourFoamedMilk(newDrink, h){
 
 function spillCoffee(h) {
     scaleBy = coffee.height();
-    for (i = scaleBy; i > h; i-- ) {
-        coffee.height(i);
+    coffee.height(scaleBy - 30);
+    if (scaleBy > h) {
+        pouringNeg = requestAnimationFrame(function(){
+            spillCoffee(h);
+        });
+    } else {
+        cancelAnimationFrame(pouringNeg);
+        coffee.removeClass().addClass('liquid coffee not-poured');
     }
-    coffee.addClass('not-poured');
+
 }
 function spillSteamedMilk(h) {
     scaleBy = steamedMilk.height();
-    for (i = scaleBy; i > h; i-- ) {
-        steamedMilk.height(i);
+    steamedMilk.height(scaleBy - 30);
+    if (scaleBy > h) {
+        pouringNeg = requestAnimationFrame(function(){
+            spillSteamedMilk(h);
+        });
+    } else {
+        cancelAnimationFrame(pouringNeg);
+        steamedMilk.removeClass().addClass('liquid steamed-milk not-poured');
     }
-    steamedMilk.addClass('not-poured');
 }
 function spillFoamedMilk(h) {
     scaleBy = foamedMilk.height();
-    for (i = scaleBy; i > h; i-- ) {
-        foamedMilk.height(i);
+    foamedMilk.height(scaleBy - 30);
+    if (scaleBy > h) {
+        pouringNeg = requestAnimationFrame(function(){
+            spillFoamedMilk(h);
+        });
+    } else {
+        cancelAnimationFrame(pouringNeg);
+        foamedMilk.removeClass().addClass('liquid foamed-milk not-poured');
     }
-    foamedMilk.addClass('not-poured');
 }
 
 $(document).ready(function(){
@@ -397,8 +413,8 @@ $(document).ready(function(){
                 circle.removeClass('ripple');
                 setTimeout(function(){
                     coffee.css({'height':''}).removeClass('not-poured');
-                    steamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
-                    foamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
+                    steamedMilk.css({'height':''}).addClass('not-poured');
+                    foamedMilk.css({'height':''}).addClass('not-poured');
                     // TODO: communicate that drink is poured
                     drink.removeClass('clicked');
                     currentDrink('espresso');

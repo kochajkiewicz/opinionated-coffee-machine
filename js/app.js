@@ -399,6 +399,7 @@ $(document).ready(function(){
                     coffee.css({'height':''}).removeClass('not-poured');
                     steamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
                     foamedMilk.css({'height':''}).removeClass('drop half double').addClass('not-poured');
+                    // TODO: communicate that drink is poured
                     drink.removeClass('clicked');
                     currentDrink('espresso');
                 },500);

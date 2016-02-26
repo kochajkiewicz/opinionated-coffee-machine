@@ -138,8 +138,8 @@ function pourCoffee(newDrink, h) {
             currentDrink('doubleEspresso');
 
             pouring = requestAnimationFrame(function() {
-                pourCoffee(newDrink, h);
-            });   
+                pourCoffee(newDrink, h);  
+            });
         } else if (coffee.height() > h/2 && coffee.height() < h) {
             pouring = requestAnimationFrame(function() {
                 pourCoffee(newDrink, h);

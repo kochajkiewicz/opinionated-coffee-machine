@@ -403,15 +403,21 @@ $(document).ready(function(){
             $(this).addClass('clicked');
 
             brewCoffee(0);
+
             if (!steamedMilk.hasClass('not-poured')) {
                 brewSteamedMilk(0);
             }
             if (!foamedMilk.hasClass('not-poured')) {
                 brewFoamedMilk(0);
             }
+
             setTimeout(function(){
                 circle.removeClass('ripple');
                 showLiquid = 1;
+                scaleBy = 0;
+                liquidHeight.coffee = 0;
+                liquidHeight.steamedMilk = 0;
+                liquidHeight.foamedMilk = 0;
                 setTimeout(function(){
                     // cleaning up
                     coffee.css({'height':''}).removeClass('not-poured');

@@ -139,7 +139,7 @@ function pourCoffee(newDrink, h) {
 
             pouring = requestAnimationFrame(function() {
                 pourCoffee(newDrink, h);
-            });
+            }); 
         } else if (coffee.height() > h/2 && coffee.height() < h) {
             pouring = requestAnimationFrame(function() {
                 pourCoffee(newDrink, h);

@@ -1,7 +1,6 @@
 // Document variables
 var pouring, pouringNeg;
 var scaleBy, scaleCoffee, scaleSmilk, scaleFmilk;
-var brewingCoffee, brewingSmilk, brewingFmilk;
 var liquidHeight = {
     coffee: '',
     steamedMilk: '',
@@ -116,7 +115,6 @@ function currentDrink(name) {
 
 function displaySuggestion(liquid, message) {
     if (!liquid) {
-        //console.log('nothing!')
     } else {
         liquid.addClass('no-drinks');
     }
@@ -187,32 +185,7 @@ function pourFoamedMilk(newDrink, h){
         }
 }
 
-
-// function brewSteamedMilk(h) {
-//     scaleBy = steamedMilk.height();
-//     steamedMilk.height(scaleBy - 30);
-//     if (scaleBy > h) {
-//         pouringNeg = requestAnimationFrame(function(){
-//             brewSteamedMilk(h);
-//         });
-//     } else {
-//         cancelAnimationFrame(pouringNeg);
-//         if (!drinks.espresso.poured) {
-//             coffee.css({'height':''});
-//             steamedMilk.css({'height':''}).removeClass('drop half double reverse').addClass('not-poured');
-//             foamedMilk.css({'height':''}).removeClass('drop half double reverse').addClass('not-poured');
-//             currentDrink('espresso');
-//         }
-//     }
-// }
-
-
-// TODO: pour drink in one function, not separate liquids
-
-function brewDrink(h) { // removed callback
-    // brewCoffee(h);
-    // //brewFoamedMilk(h);
-    // function brewCoffee(h) {
+function brewDrink(h) {
     scaleCoffee = coffee.height();
     scaleSmilk = steamedMilk.height();
     scaleFmilk = foamedMilk.height();
@@ -247,34 +220,6 @@ function brewDrink(h) { // removed callback
         }, 1000);
     }
 }
-    // function brewFoamedMilk(h) {
-    //     scaleBy = foamedMilk.height();
-    //     foamedMilk.height(scaleBy - 30);
-    //     if (scaleBy > h) {
-    //         pouringNeg = requestAnimationFrame(function(){
-    //             brewFoamedMilk(h);
-    //         });
-    //     } else {
-    //         cancelAnimationFrame(pouringNeg);
-    //         //coffee.css({'height':''});
-    //         //steamedMilk.css({'height':''}).removeClass('drop half double reverse').addClass('not-poured');
-    //         foamedMilk.css({'height':''}).removeClass('drop half double reverse').addClass('not-poured');
-    //         //currentDrink('espresso');
-    //     }
-    // }
-    // $('.liquid:not(.not-poured)').each(function(i){
-    //     console.log($(this), i);
-    //     scaleBy = $(this).height();
-    //     $(this).height(scaleBy - 30);
-    //     if (scaleBy > h) {
-    //         pouringNeg[i] = requestAnimationFrame(function(){
-    //             brewDrink(h);
-    //         });
-    //     } else {
-    //         cancelAnimationFrame(pouringNeg);
-    //         $(this).css({'height': ''});
-    //     }
-    // });
 
 $(document).ready(function(){
 
@@ -472,18 +417,7 @@ $(document).ready(function(){
 
             $(this).addClass('clicked');
             brewDrink(0);
-            // brewCoffee(0);
-            //
-            // if (!steamedMilk.hasClass('not-poured')) {
-            //     brewSteamedMilk(0);
-            // }
-            // if (!foamedMilk.hasClass('not-poured')) {
-            //     brewFoamedMilk(0);
-            // }
-
-
         }
-        //e.stopPropagation();
     });
 });
 

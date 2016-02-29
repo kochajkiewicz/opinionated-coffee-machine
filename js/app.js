@@ -100,7 +100,6 @@ function currentDrink(name) {
         if (drinks.hasOwnProperty(key)) {
             if (key === name) {
                 drinks[key]['poured'] = true;
-                // TODO: change name on screen
                 drink.hide().html('').addClass('flip-in-x').removeClass('clicked').html(drinks[key]['name']).show();
                 setTimeout(function () {
                     drink.removeClass('flip-in-x');
@@ -145,7 +144,7 @@ function pourCoffee(newDrink, h) {
                 pourCoffee(newDrink, h);
             });
         } else {
-            cancelAnimationFrame(pouringNeg);
+            cancelAnimationFrame(pouring);
             currentDrink(newDrink);
         }
     }
@@ -215,7 +214,6 @@ function brewDrink(h) {
             }, 500);
 
             currentDrink('espresso');
-
 
         }, 1000);
     }
